@@ -1,0 +1,166 @@
+from abc import ABC, abstractmethod
+import math
+
+
+class Calculator(ABC):
+    def __init__(self):
+        self.__numbers = []
+
+
+    def get__numbers(self):
+        return self.__numbers
+
+
+    def set__numbers(self, numbers):
+        self.__numbers = numbers
+
+
+    def num(self):
+        num_count = int(input("Enter the number of values: "))
+        for i in range(num_count):
+            num = int(input("Enter a Number: "))
+            self.__numbers.append(num)
+
+
+    @abstractmethod
+    def calculate(self):
+        pass
+
+
+
+class Basic_Calculator(Calculator):
+    def value(self):
+        self.num()
+
+
+    def calculate(self):
+        if choice1 == '1':
+            self._add()
+        elif choice1 == '2':
+            self._subtract()
+        elif choice1 == '3':
+            self._multiply()
+        elif choice1 == '4':
+            self._divide()
+        else:
+            print("Invalid input")
+
+
+    def _add(self):
+        result = sum(self.get__numbers())
+        print(f"The Answer is: {result}")
+
+
+    def _subtract(self):
+        result = self.get__numbers()[0]
+        for num in self.get__numbers()[1:]:
+            result -= num
+        print(f"The Answer is: {result}")
+
+
+    def _multiply(self):
+        result = 1
+        for num in self.get__numbers():
+            result *= num
+        print(f"The Answer is: {result}")
+
+
+    def _divide(self):
+        result = self.get__numbers()[0]
+        for num in self.get__numbers()[1:]:
+            result /= num
+        print(f"The Answer is: {result}")
+
+
+    def clear(self):
+        self.set__numbers([])
+
+
+class ScientificCalculator(Calculator):
+    def value(self):
+        self.num()
+
+
+    def calculate(self):
+        if choice2 == '1':
+            self._squareRoot()
+        elif choice2 == '2':
+            self._exponentiation()
+        elif choice2 == '3':
+            self._factorial()
+        else:
+            print("Invalid input")
+
+
+    def _squareRoot(self):
+        results = [math.sqrt(num) for num in self.get__numbers()]
+        print("The Answers are:")
+        for result in results:
+            print(result)
+
+
+    def _exponentiation(self):
+        base = self.get__numbers()[0]
+        for num in self.get__numbers()[1:]:
+            base = base ** num
+            print(f"The Answer is: {base}")
+
+
+
+    def _factorial(self):
+        results = [math.factorial(num) for num in self.get__numbers()]
+        print("The Answers are:")
+        for result in results:
+            print(result)
+
+
+    def clear(self):
+        self.set__numbers([])
+
+
+print("***CALCULATOR***")
+
+
+while True :
+    print("\n1. Basic Calculator\n2. Scientific Calculator")
+    choice = input("Choose Calculator (x for exit): ")
+
+
+    if choice == 'x':
+        break
+
+
+    choice = int(choice)
+
+
+    if choice == 1:
+        BC = Basic_Calculator()
+        print("\nBasic Calculator\n1. Addition\n2. Subtraction\n3. Multiplication\n4. Division")
+        choice1 = input("Choose Arithmetic Operation (x to go): ")
+
+
+        if choice1 == 'x':
+            continue
+        else:
+            BC.value()
+            BC.calculate()
+            BC.clear()
+            break
+
+
+    elif choice == 2:
+        SC = ScientificCalculator()
+        print("\nScientific Calculator\n1. Square Root\n2. Exponentiation\n3. Factorial")
+        choice2 = input("Choose Arithmetic Operation (x to go back): ")
+
+
+        if choice2 == 'x':
+            continue
+        else:
+            SC.value()
+            SC.calculate()
+            SC.clear()
+            break  
+    else:
+        print('Invalid input')
+
